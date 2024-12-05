@@ -1,10 +1,6 @@
 package src;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -52,10 +48,61 @@ class Ride implements RideInterface {
         }
     }
 
+    // 添加游客记录
+    @Override
+    public void addVisitorToHistory(Visitor visitor) {
+        history.add(visitor);
+    }
 
+    // 历史记录检查
+    @Override
+    public void checkVisitorFromHistory(String visitorName) {
+        for (Visitor visitor : history) {
+            if (visitor.getName().equals(visitorName)) {
+                System.out.println("checked");
+            }
+        }
+        System.out.println("not checked");
+    }
+    // 排序
+    public void sortRideHisotry() {
+        Collections.sort(history, new VisitorComparator());
+    }
 
+    // 历史游客数量
+    @Override
+    public int numberOfVisitors() {
+        return history.size();
+    }
 
+    // 打印历史记录
+    @Override
+    public void printRideHistory() {
+        Iterator<Visitor> iterator = history.iterator();
+        if (history.size() == 0) {
+            System.out.println("empty");
+            return;
+        }
+        while (iterator.hasNext()) {
+            Visitor visitor = iterator.next();
+            System.out.println(visitor.toString());
+        }
+    }
 
-    
+    @Override
+    public void runOneCycle() {
+
+        
+    }
+
+    @Override
+    public void exportRideHistory(String filename) {
+        
+    }
+
+    @Override
+    public void importRideHistory(String filename) {
+        
+    }
 
 }
