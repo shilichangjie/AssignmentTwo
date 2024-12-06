@@ -1,6 +1,10 @@
 package src;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -8,9 +12,11 @@ import java.util.Collections;
 
 class Ride implements RideInterface {
     String rideName;
+    int maxRider = 2;
     Employee operator;
     ArrayList<Visitor> queue = new ArrayList<>();
     LinkedList<Visitor> history = new LinkedList<>();
+    int numOfCycles = 0;
 
     public Ride() {
     }
@@ -89,10 +95,29 @@ class Ride implements RideInterface {
         }
     }
 
+    // 运行一次
     @Override
     public void runOneCycle() {
 
-        
+        if (queue.isEmpty()) {
+            System.out.println("queue is empty");
+            return;
+        }
+        if (operator == null) {
+            System.out.println("operator is empty");
+            return;
+        }
+
+        for (int i = 0; i < maxRider; i++) {
+            if (queue.isEmpty()) {
+                break;
+            }
+            addVisitorToHistory(queue.get(0));
+            queue.remove(0);
+        }
+
+        numOfCycles++;
+        System.err.println("numOfCycles:" + numOfCycles);
     }
 
     @Override
