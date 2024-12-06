@@ -120,14 +120,35 @@ class Ride implements RideInterface {
         System.err.println("numOfCycles:" + numOfCycles);
     }
 
+    // 导出到文件
     @Override
     public void exportRideHistory(String filename) {
-        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Visitor visitor : history) {
+                writer.write(visitor.getName() + "," + visitor.getAge() + "," + visitor.getGender() + "," +
+                        visitor.getPhone() + "," + visitor.getVisitorType());
+                writer.newLine();
+            }
+            System.out.println("export success " + filename);
+        } catch (IOException e) {
+            System.out.println("export error!");
+        }
     }
 
+    // 导入历史记录
     @Override
     public void importRideHistory(String filename) {
-        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] v = line.split(",");
+                Visitor visitor = new Visitor(v[0], Integer.parseInt(v[1]), v[2], v[3], v[4]);
+                history.add(visitor);
+            }
+            System.out.println("import success");
+        } catch (IOException e) {
+            System.out.println("import error");
+        }
     }
 
 }

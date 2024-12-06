@@ -106,10 +106,25 @@ public class AssignmentTwo {
     }
 
     public void partSix() {
-        
+        Ride ride = new Ride("roller coaster",new Employee("Ivy Davis", 35, "Male", 2, "Operator"));
+        // 向历史记录中添加至少5位游客。
+        ride.addVisitorToHistory(new Visitor("Alice Johnson", 30, "Female", "123-456-7890", "Tourist"));
+        ride.addVisitorToHistory(new Visitor("Bob Smith", 45, "Male", "234-567-8901", "VIP"));
+        ride.addVisitorToHistory(new Visitor("Charlie Brown", 28, "Male", "345-678-9012", "Regular"));
+        ride.addVisitorToHistory(new Visitor("David Williams", 35, "Male", "456-789-0123", "Tourist"));
+        ride.addVisitorToHistory(new Visitor("Eva Clark", 22, "Female", "567-890-1234", "VIP"));
+        // 导出这些游客的信息到一个文件中
+        ride.exportRideHistory("rideHistory.csv");
     }
 
     public void partSeven() {
-        
+        // 创建一个新的 `Ride` 对象。
+        Ride ride = new Ride("roller coaster",new Employee("Ivy Davis", 35, "Male", 2, "Operator"));
+        // 导入游客信息
+        ride.importRideHistory("rideHistory.csv");
+        // 历史记录中游客的数量
+        System.out.println("numberOfVisitors: " + ride.numberOfVisitors());
+        // 打印历史记录中所有游客的详细信息
+        ride.printRideHistory();
     }
 }
